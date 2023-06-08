@@ -1,4 +1,4 @@
-# Symmetric Cryptography Practice
+# Symmetric Cryptography
 
 This project focuses on practicing symmetric cryptography techniques. It involves creating an encrypter and decrypter program based on symmetric key algorithms.
 
