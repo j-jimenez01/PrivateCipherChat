@@ -1,4 +1,9 @@
 import random
+# color text
+RED = "\033[31m"
+GREEN = "\033[32m"
+BLUE = "\033[34m"
+RESET = "\033[0m"
 symbols = {",":",",".":".",":":":",";":";","?":"?","!":"!","-":"-"," ":" ","'":"'"}#global variables for symbols since i am not mixing these with the letters
 #this function is to encrypt the phrase passed in with the key used. This will be able to 
 #hide any phrases without people knowing
@@ -27,6 +32,12 @@ def decryption(phrase,key):
             oldPhrase += symbols[x]
     return oldPhrase
 
+#this function is going to make a random key if the user chooses it
+def randomKey():
+    all = list("abcdefghijklmnopqrstuvwxyz")
+    random.shuffle(all)
+    return "".join(all)
+
 #main
 #making a list of strings to say which option is happening
 items = ["Encypt?","Decrypt?"]
@@ -48,7 +59,14 @@ while True:
 
     #asking the user for a phrase and key
     phrase = input(f"What phrase would you like to {items[choice]}: ")
-    letters = input("What is your key? ")
+    if option == 1:
+        letters = int(input("1. Enter a key(26 letters/symbols)\n2. random key?\nWhat would you like to do? "))
+        if letters == 1:
+            letters = input("Enter key: ")
+        else:
+            letters = randomKey()
+    else:
+        letters = input("Enter key: ")
     #alphabet so we can make it set the key
     letters2 = "abcdefghijklmnopqrstuvwxyz"
     l1 = []#creating a list to randomize the letters 
@@ -63,7 +81,8 @@ while True:
     #passes the phrase and key into the function and then prints out what is returned
     if choice == 0:
         encrypt = encryption(phrase,key)
-        print("\nEncytped Phrase is:", encrypt,"\n")
+        key = "".join(key.values())
+        print(f"\nEncrypted Phrase is: {BLUE}{encrypt}{RESET}\nYour encrpyted key is: {RED}{key}{RESET}\n")
     else:
         decrypt = decryption(phrase,key)
-        print("\nDecytped Phrase is:", decrypt,"\n")
+        print(f"\nDecrypted Phrase is: {GREEN}{decrypt}{RESET}\n")
